@@ -1,0 +1,35 @@
+{
+  "name": "uiautomator-web",
+  "version": "0.0.1",
+  "description": "web wrapper for uiautomator2, screenshot associate to xml source",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "f2e start",
+    "build": "f2e build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowpp/uiautomator-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/flowpp/uiautomator-web/issues"
+  },
+  "homepage": "https://github.com/flowpp/uiautomator-web#readme",
+  "devDependencies": {
+    "f2e-middle-rollup": "^0.3.3",
+    "f2e-server": "^2.9.8",
+    "rollup": "^0.63.4",
+    "rollup-plugin-commonjs": "^9.1.4",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-typescript2": "^0.16.1",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "ipreact": "^0.1.8",
+    "preact": "^8.2.9"
+  }
+}
