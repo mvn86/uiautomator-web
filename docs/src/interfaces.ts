@@ -1,5 +1,5 @@
 export interface Config {
-    el: HTMLElement
+    el?: HTMLElement
     loadXML?: () => Promise<Document>
     screenShot?: string
     onload?: (img) => void

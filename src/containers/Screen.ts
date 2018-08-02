@@ -15,22 +15,22 @@ export default connect(({HEIGHT}) => {
     if (!onMouseMove && doc) {
         let elements = doc.querySelectorAll('[bounds]')
         const zoom = height / HEIGHT
-        let running = false
         let canMove = false
 
         onMouseMove = (e: MouseEvent) => {
-            if (running || !canMove) return
-            running = true
-            setTimeout(function () {
-                running = false
-            }, 300)
-
+            if (!canMove) return
             const { offsetX, offsetY } = e
+            if (focus && boundContains(focus, offsetX * zoom, offsetY * zoom)) {
+                return
+            }
             for (let i = elements.length - 1; i > 0; i--) {
-                if (boundContains(elements[i].getAttribute('bounds'), offsetX * zoom, offsetY * zoom)) {
-                    onFocus(elements[i])
-                    if (!expends.has(elements[i])) {
-                        onExpend(elements[i])
+                const ele = elements[i]
+                if (boundContains(ele.getAttribute('bounds'), offsetX * zoom, offsetY * zoom)) {
+                    if (ele != focus) {
+                        onFocus(ele)
+                    }
+                    if (!expends.has(ele)) {
+                        onExpend(ele)
                     }
                     return
                 }

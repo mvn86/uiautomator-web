@@ -2,7 +2,7 @@ const typescript = require('rollup-plugin-typescript2')
 const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
 module.exports = [{
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     plugins: [
         typescript(),
         nodeResolve(),

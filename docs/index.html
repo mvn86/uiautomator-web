@@ -11,7 +11,7 @@
     <script src="bundle.js"></script>
     <script>
     (function (U) {
-        U({
+        U.renderContainer({
             loadXML: () => fetch('./data/source.xml').then(res => res.text()).then(txt => new DOMParser().parseFromString(txt, 'text/xml')),
             screenShot: './data/tmp.png',
             el: document.querySelector('#app')
