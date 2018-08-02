@@ -3,10 +3,7 @@ import Screen from '../containers/Screen'
 import Hierarchy from '../containers/Hierarchy'
 import Detail from '../containers/Detail'
 
-const WIDTH = 960
-const HEIGHT = 750
-
-export default ({doc}) => !doc ? <h2>Loading...</h2> : <div style={{
+export default ({doc, WIDTH = 960, HEIGHT = 750}) => !doc ? <h2>Loading...</h2> : <div style={{
     position: 'relative',
     width: WIDTH,
     height: HEIGHT,

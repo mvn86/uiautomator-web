@@ -4,6 +4,8 @@ export interface Config {
     screenShot?: string
     onload?: (img) => void
     onerror?: (e) => void
+    WIDTH?: number
+    HEIGHT?: number
 }
 
 export interface Store {
