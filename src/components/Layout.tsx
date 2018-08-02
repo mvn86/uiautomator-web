@@ -28,7 +28,7 @@ export default ({doc, HEIGHT = 750}) => !doc ? <h2>Loading...</h2> : <div style=
             position: 'absolute',
             left: 0,
             top: 0,
-            width: '50%',
+            width: '100%',
             height: HEIGHT / 2,
             overflow: 'auto'
         }}><Hierarchy /></div>
@@ -36,7 +36,7 @@ export default ({doc, HEIGHT = 750}) => !doc ? <h2>Loading...</h2> : <div style=
             position: 'absolute',
             left: 0,
             bottom: 0,
-            width: '50%',
+            width: '100%',
             height: HEIGHT / 2,
             borderTop: '1px solid #ccc',
             overflow: 'auto'
