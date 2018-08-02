@@ -5,12 +5,12 @@ import Layout from './containers/Layout'
 
 export const renderContainer = (cfg: Config) => {
     const { el, ...props } = cfg
-    const { width, height } = el.getBoundingClientRect()
-    render(<Container {...props} WIDTH={width} HEIGHT={height}/>, el)
+    const { height } = el.getBoundingClientRect()
+    render(<Container {...props}  HEIGHT={height}/>, el)
 }
 
 export const Container = (cfg: Config) => {
-    const { WIDTH, HEIGHT, loadXML, screenShot, onload, onerror = e => alert(e.toString()) } = cfg
+    const { HEIGHT, loadXML, screenShot, onload, onerror = e => alert(e.toString()) } = cfg
     const img = new Image()
     img.addEventListener('load', function (e) {
         onload && onload(img)
@@ -27,5 +27,5 @@ export const Container = (cfg: Config) => {
         }).catch(onerror)
     })
     img.src = screenShot
-    return <Layout WIDTH={WIDTH} HEIGHT={HEIGHT}/>
+    return <Layout HEIGHT={HEIGHT}/>
 }
