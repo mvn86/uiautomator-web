@@ -26,6 +26,7 @@ export const Container = (cfg: Config) => {
             }))
         }).catch(onerror)
     })
+    dispatch(state => ({needReload: true}))
     img.src = screenShot
     return <Layout HEIGHT={HEIGHT}/>
 }

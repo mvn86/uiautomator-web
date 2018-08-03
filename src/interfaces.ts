@@ -8,10 +8,24 @@ export interface Config {
 }
 
 export interface Store {
+    needReload?: boolean
     doc?: Document
     width?: number
     height?: number
     screenShot?: string
     focus?: Element
     expends?: Set<Element>
+}
+
+export interface Bounds {
+    left: number
+    top: number
+    right: number
+    bottom: number
+}
+
+export interface ScreenNode {
+    bounds: Bounds,
+    size: number,
+    node: Element
 }

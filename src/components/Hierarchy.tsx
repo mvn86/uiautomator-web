@@ -16,8 +16,16 @@ const getClass = (node: Element) => {
     return clazz && clazz.split('.').pop()
 }
 
+const FOCUS_CLASS = Math.random().toString(36).replace('0.', 'focus_')
 export default class extends Component<HierarchyProps, HierarchyState> {
 
+    componentDidUpdate () {
+        let focus = document.querySelector(`.${FOCUS_CLASS}`)
+        if (focus) {
+            focus['focus']()
+        }
+    }
+    
     loop = (node: Element, root?: boolean) => {
         const { focus, expends, onExpend, onFocus } = this.props
         const { loop } = this
@@ -25,7 +33,7 @@ export default class extends Component<HierarchyProps, HierarchyState> {
         return <li style={{
             paddingLeft: 12
         }}>
-            <div tabIndex={-1} style={{
+            <div className={focus === node ? FOCUS_CLASS : ''} tabIndex={-1} style={{
                 cursor: 'pointer',
                 lineHeight: 2,
                 background: focus === node ? '#d2d2d2' : null
