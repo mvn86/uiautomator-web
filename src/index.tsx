@@ -14,11 +14,11 @@ export const Container = (cfg: Config) => {
     const img = new Image()
     img.addEventListener('load', function (e) {
         onload && onload(img)
-        const { width, height } = img
         loadXML().then(doc => {
+            const [x, y, w, h] = doc.querySelector('[bounds]').getAttribute('bounds').match(/\d+/g)
             dispatch(state => ({
                 ...state,
-                width, height,
+                width: Number(w), height: Number(h),
                 screenShot,
                 doc,
                 focus: null,
