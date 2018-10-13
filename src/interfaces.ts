@@ -1,6 +1,6 @@
 export interface Config {
     el?: HTMLElement
-    loadXML?: () => Promise<Document>
+    loadXML?: Promise<Document>
     screenShot?: Promise<string>
     onload?: (img: HTMLImageElement) => void
     onerror?: (e) => void

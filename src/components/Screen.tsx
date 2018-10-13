@@ -1,7 +1,7 @@
 import { h, Component } from 'preact'
 
 export interface ScreenProps {
-    screenShot: string
+    screenShot: Promise<string>
     width: number
     height: number
     HEIGHT: number
@@ -11,16 +11,31 @@ export interface ScreenProps {
     onClick: (e: MouseEvent) => void
 }
 
-export default class extends Component<ScreenProps> {
+export default class extends Component<ScreenProps, {src?: string}> {
+
+    componentDidMount () {
+        const { screenShot } = this.props
+        const t = this
+        screenShot.then(src => t.setState({src}))
+    }
+    
+    componentWillReceiveProps (nextProps) {
+        const { screenShot } = nextProps
+        const t = this
+        screenShot.then(src => t.setState({src}))
+    }
+    
+
     render () {
-        const { screenShot, width, height, HEIGHT, focus, onMouseMove, onMouseEnter, onClick } = this.props
+        const { width, height, HEIGHT, focus, onMouseMove, onMouseEnter, onClick } = this.props
+        const { src } = this.state
         const zoom = HEIGHT / height
         const style = {
+            display: 'block',
             position: 'relative',
             margin: '0 auto',
             height: zoom * height,
             width: zoom * width,
-            background: `url(${screenShot}) no-repeat center center`,
             backgroundSize: '100% 100%'
         }
 
@@ -40,6 +55,7 @@ export default class extends Component<ScreenProps> {
         }
 
         return <div style={style} onMouseMove={onMouseMove} onMouseEnter={onMouseEnter} onClick={onClick}>
+            <img src={src} style={style}/>
             <div style={Object.assign({ transition: 'all .2s ease' }, innerStyle)}></div>
             <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}}></div>
         </div>

@@ -15,7 +15,7 @@ export const Container = (cfg: Config) => {
     img.addEventListener('load', function (e) {
         const { width, height } = img
         onload && onload(img)
-        loadXML().then(doc => {
+        loadXML.then(doc => {
             const [x, y, w, h] = doc.querySelector('[bounds]').getAttribute('bounds').match(/\d+/g)
             dispatch(state => ({
                 ...state,
