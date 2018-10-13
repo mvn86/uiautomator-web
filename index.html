@@ -14,6 +14,9 @@
         U.renderContainer({
             loadXML: () => fetch('./data/source.xml').then(res => res.text()).then(txt => new DOMParser().parseFromString(txt, 'text/xml')),
             screenShot: './data/tmp.png',
+            onClick: (e, node) => {
+                console.log(e, node)
+            },
             el: document.querySelector('#app')
         })
     })(UIAutomator);

@@ -12,7 +12,7 @@ let onMouseMove
 let onMouseEnter
 let onClick
 export default connect(({HEIGHT}) => {
-    const { screenShot, width, height, focus, doc, expends, needReload } = getState()
+    const { screenShot, width, height, focus, doc, expends, needReload, onClick: onClickCfg } = getState()
     if (needReload && doc) {
         dispatch(state => ({...state, needReload: false}))
         const zoom = height / HEIGHT
@@ -50,8 +50,10 @@ export default connect(({HEIGHT}) => {
             canMove = true
         }
 
-        onClick = () => {
+        onClick = (e) => {
             canMove = !canMove
+            const { focus } = getState()
+            onClickCfg(e, focus)
         }
     }
     return {

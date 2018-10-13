@@ -10,7 +10,7 @@ export const renderContainer = (cfg: Config) => {
 }
 
 export const Container = (cfg: Config) => {
-    const { HEIGHT, loadXML, screenShot, onload, onerror = e => alert(e.toString()) } = cfg
+    const { HEIGHT, loadXML, screenShot, onload, onClick, onerror = e => alert(e.toString()) } = cfg
     const img = new Image()
     img.addEventListener('load', function (e) {
         const { width, height } = img
@@ -23,11 +23,13 @@ export const Container = (cfg: Config) => {
                 screenShot,
                 doc,
                 focus: null,
+                onClick,
                 expends: new Set<Element>()
             }))
         }).catch(onerror)
     })
     dispatch(state => ({needReload: true}))
-    img.src = screenShot
+    Promise.resolve(screenShot).then((src) => img.src = src)
+    
     return <Layout HEIGHT={HEIGHT}/>
 }

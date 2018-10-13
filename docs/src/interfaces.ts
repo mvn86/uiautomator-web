@@ -1,10 +1,11 @@
 export interface Config {
     el?: HTMLElement
     loadXML?: () => Promise<Document>
-    screenShot?: string
-    onload?: (img) => void
+    screenShot?: Promise<string>
+    onload?: (img: HTMLImageElement) => void
     onerror?: (e) => void
     HEIGHT?: number
+    onClick?: (e: MouseEvent, node: Element) => void
 }
 
 export interface Store {
@@ -12,9 +13,10 @@ export interface Store {
     doc?: Document
     width?: number
     height?: number
-    screenShot?: string
+    screenShot?: Promise<string>
     focus?: Element
     expends?: Set<Element>
+    onClick?: (e: MouseEvent, node: Element) => void
 }
 
 export interface Bounds {
