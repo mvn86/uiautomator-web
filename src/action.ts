@@ -1,6 +1,8 @@
 import { dispatch, getState } from './store'
 
 export const onFocus = (focus: Element) => dispatch((state) => {
+    const { onClick } = state
+    onClick && onClick(null, focus)
     return {
         ...state,
         focus

@@ -53,7 +53,7 @@ export default connect(({HEIGHT}) => {
         onClick = (e) => {
             canMove = !canMove
             const { focus } = getState()
-            onClickCfg(e, focus)
+            onClickCfg &&　onClickCfg(e, focus)
         }
     }
     return {
