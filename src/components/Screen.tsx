@@ -54,10 +54,10 @@ export default class extends Component<ScreenProps, {src?: string}> {
             }
         }
 
-        return <div style={style} onMouseMove={onMouseMove} onMouseEnter={onMouseEnter} onClick={onClick}>
+        return <div style={style}>
             <img src={src} style={style}/>
             <div style={Object.assign({ transition: 'all .2s ease' }, innerStyle)}></div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}}></div>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}} onMouseMove={onMouseMove} onMouseEnter={onMouseEnter} onClick={onClick}></div>
         </div>
 
     }
