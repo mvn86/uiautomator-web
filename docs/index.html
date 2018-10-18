@@ -20,8 +20,8 @@
         })
 
         U.renderContainer({
-            loadXML: fetch('./data/source.xml').then(res => res.text()).then(txt => new DOMParser().parseFromString(txt, 'text/xml')),
-            screenShot: fetch('./data/tmp.png').then(res => res.blob()).then(screenShot),
+            loadXML: () => fetch('./data/source.xml').then(res => res.text()).then(txt => new DOMParser().parseFromString(txt, 'text/xml')),
+            screenShot: () => fetch('./data/tmp.png').then(res => res.blob()).then(screenShot),
             onClick: (e, node) => {
                 // console.log(e, node)
             },

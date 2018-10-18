@@ -9,14 +9,14 @@ const boundContains = (bounds: Bounds, x, y): boolean => {
 }
 
 let onMouseMove
-let onMouseEnter
 let onClick
+let onInputFocus
 export default connect(({HEIGHT}) => {
-    const { screenShot, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onInput } = getState()
+    const { src, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onInput } = getState()
     if (needReload && doc) {
         dispatch(state => ({...state, needReload: false}))
         const zoom = height / HEIGHT
-        let canMove = false
+        let canMove = true
 
         let elements: ScreenNode[] = [].map.call(doc.querySelectorAll('[bounds]'), node => {
             const [left, top, right, bottom] = node.getAttribute('bounds').match(/\d+/g).map(Number)
@@ -45,19 +45,17 @@ export default connect(({HEIGHT}) => {
                 }
             }
         }
-
-        onMouseEnter = () => {
-            canMove = true
-        }
-
         onClick = (e) => {
             canMove = !canMove
             const { focus } = getState()
             onClickCfg &&　onClickCfg(e, focus)
         }
+        onInputFocus = (e) => {
+            canMove = false
+        }
     }
     return {
-        screenShot, width, height, focus, doc,
-        onMouseMove, onMouseEnter, onClick, onInput
+        src, width, height, focus, doc,
+        onMouseMove, onClick, onInput, onInputFocus
     }
 })(Screen)
