@@ -12,7 +12,7 @@ let onMouseMove
 let onMouseEnter
 let onClick
 export default connect(({HEIGHT}) => {
-    const { screenShot, width, height, focus, doc, expends, needReload, onClick: onClickCfg } = getState()
+    const { screenShot, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onInput } = getState()
     if (needReload && doc) {
         dispatch(state => ({...state, needReload: false}))
         const zoom = height / HEIGHT
@@ -58,6 +58,6 @@ export default connect(({HEIGHT}) => {
     }
     return {
         screenShot, width, height, focus, doc,
-        onMouseMove, onMouseEnter, onClick
+        onMouseMove, onMouseEnter, onClick, onInput
     }
 })(Screen)

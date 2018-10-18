@@ -9,9 +9,10 @@ export interface ScreenProps {
     onMouseMove: (e: MouseEvent) => void
     onMouseEnter: (e: MouseEvent) => void
     onClick: (e: MouseEvent) => void
+    onInput: (value: string, node: Element) => void
 }
 
-export default class extends Component<ScreenProps, {src?: string}> {
+export default class extends Component<ScreenProps, {src?: string, focus}> {
 
     componentDidMount () {
         const { screenShot } = this.props
@@ -25,9 +26,18 @@ export default class extends Component<ScreenProps, {src?: string}> {
         screenShot.then(src => t.setState({src}))
     }
     
+    onClick = (e) => {
+        const { focus, onClick } = this.props
+        if (focus.getAttribute('class') === 'android.widget.EditText') {
+            this.setState({
+                focus
+            })
+        }
+        onClick && onClick(e)
+    }
 
     render () {
-        const { width, height, HEIGHT, focus, onMouseMove, onMouseEnter, onClick } = this.props
+        const { width, height, HEIGHT, focus, onMouseMove, onMouseEnter, onInput = () => {} } = this.props
         const { src } = this.state
         const zoom = HEIGHT / height
         const style = {
@@ -57,7 +67,8 @@ export default class extends Component<ScreenProps, {src?: string}> {
         return <div style={style}>
             <img src={src} style={style}/>
             <div style={Object.assign({ transition: 'all .2s ease' }, innerStyle)}></div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}} onMouseMove={onMouseMove} onMouseEnter={onMouseEnter} onClick={onClick}></div>
+            <textarea style={Object.assign({zIndex: 2, display: this.state.focus === focus ? 'block' : 'none'}, innerStyle)} onInput={(e) => onInput(e.target['value'], focus)}></textarea>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}} onMouseMove={onMouseMove} onMouseEnter={onMouseEnter} onClick={this.onClick}></div>
         </div>
 
     }

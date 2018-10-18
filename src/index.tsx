@@ -10,7 +10,7 @@ export const renderContainer = (cfg: Config) => {
 }
 
 export const Container = (cfg: Config) => {
-    const { HEIGHT, loadXML, screenShot, onload, onClick, onerror = e => alert(e.toString()) } = cfg
+    const { HEIGHT, loadXML, screenShot, onload, onClick, onInput, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = cfg
     const img = new Image()
     img.addEventListener('load', function (e) {
         const { width, height } = img
@@ -24,6 +24,7 @@ export const Container = (cfg: Config) => {
                 doc,
                 focus: null,
                 onClick,
+                onInput,
                 expends: new Set<Element>()
             }))
         }).catch(onerror)

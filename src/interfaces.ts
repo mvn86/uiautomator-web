@@ -6,6 +6,7 @@ export interface Config {
     onerror?: (e) => void
     HEIGHT?: number
     onClick?: (e: MouseEvent, node: Element) => void
+    onInput?: (value: string, node: Element) => void
 }
 
 export interface Store {
@@ -17,6 +18,7 @@ export interface Store {
     focus?: Element
     expends?: Set<Element>
     onClick?: (e: MouseEvent, node: Element) => void
+    onInput?: (value: string, node: Element) => void
 }
 
 export interface Bounds {
