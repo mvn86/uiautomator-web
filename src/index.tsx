@@ -14,7 +14,7 @@ export class Container extends Component<Config> {
     init = (props: Config) => {
         const { loadXML, screenShot, onload, onClick, onInput, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
         const img = new Image()
-        dispatch(state => ({...state, needReload: true}))
+        dispatch(state => ({...state, needReload: true, doc: null}))
         img.addEventListener('load', function (e) {
             const { width, height } = img
             onload && onload(img)
