@@ -5,8 +5,10 @@ export interface Config {
     onload?: (img: HTMLImageElement) => void
     onerror?: (e) => void
     HEIGHT?: number
-    onClick?: (e: MouseEvent, node: Element) => void
-    onInput?: (value: string, node: Element) => void
+    onClick?: (e: MouseEvent, data, node: Element) => void
+    onInput?: (value: string, data, node: Element) => void
+    columns_enabled?: string[]
+    columns_checked?: string[]
 }
 
 export interface Store {
@@ -17,8 +19,10 @@ export interface Store {
     src?: string
     focus?: Element
     expends?: Set<Element>
-    onClick?: (e: MouseEvent, node: Element) => void
-    onInput?: (value: string, node: Element) => void
+    onClick?: (e: MouseEvent, data, node: Element) => void
+    onInput?: (value: string, data, node: Element) => void
+    columns_enabled?: string[]
+    columns_checked?: string[]
 }
 
 export interface Bounds {

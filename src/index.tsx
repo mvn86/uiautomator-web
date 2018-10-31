@@ -12,14 +12,16 @@ export const renderContainer = (cfg: Config) => {
 export class Container extends Component<Config> {
 
     init = (props: Config) => {
-        const { loadXML, screenShot, onload, onClick, onInput, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
+        const { loadXML, screenShot, onload, onClick, onInput, columns_enabled, columns_checked, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
         const img = new Image()
         dispatch(state => ({...state, needReload: true, doc: null}))
         img.addEventListener('load', function (e) {
             const { width, height } = img
             onload && onload(img)
             loadXML().then(doc => {
-                const [x, y, w, h] = doc.querySelector('[bounds]').getAttribute('bounds').match(/\d+/g)
+                const model = doc.querySelector('[bounds]')
+                const attributes = [].slice.call(model.attributes).map(({name}) => name)
+                const [x, y, w, h] = model.getAttribute('bounds').match(/\d+/g)
                 dispatch(state => ({
                     ...state,
                     width: Number(w), height: Number(w) * height / width,
@@ -28,6 +30,8 @@ export class Container extends Component<Config> {
                     focus: null,
                     onClick,
                     onInput,
+                    columns_enabled: columns_enabled || attributes,
+                    columns_checked: columns_checked || attributes,
                     expends: new Set<Element>()
                 }))
             }).catch(onerror)

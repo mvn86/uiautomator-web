@@ -1,8 +1,11 @@
 import { dispatch, getState } from './store'
 
 export const onFocus = (focus: Element) => dispatch((state) => {
-    const { onClick } = state
-    onClick && onClick(null, focus)
+    const { onClick, columns_checked } = state
+
+    let data = {}
+    columns_checked.map(k => {data[k] = focus.getAttribute(k)})
+    onClick && onClick(null, data, focus)
     return {
         ...state,
         focus

@@ -46,9 +46,13 @@ export default connect(({HEIGHT}) => {
             }
         }
         onClick = (e) => {
+            const { focus, columns_checked = [] } = getState()
+            if (canMove && focus) {
+                let data = {}
+                columns_checked.map(k => {data[k] = focus.getAttribute(k)})
+                onClickCfg &&　onClickCfg(e, data, focus)
+            }
             canMove = !canMove
-            const { focus } = getState()
-            onClickCfg &&　onClickCfg(e, focus)
         }
         onInputFocus = (e) => {
             canMove = false
