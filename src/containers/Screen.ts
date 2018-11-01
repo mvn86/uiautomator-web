@@ -12,7 +12,7 @@ let onMouseMove
 let onClick
 let onInputFocus
 export default connect(({HEIGHT}) => {
-    const { src, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onSwipe, onInput } = getState()
+    const { src, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onSwipe, onInput, contentmenu } = getState()
     if (needReload && doc) {
         dispatch(state => ({...state, needReload: false}))
         const zoom = height / HEIGHT
@@ -40,7 +40,7 @@ export default connect(({HEIGHT}) => {
             }
         }
         onmouseup = (e: MouseEvent) => {
-            const { from, to, begin, end } = Object.assign(swipe, { end: Date.now(), to: e })
+            const { from, to, begin, end } = Object.assign({}, swipe, { end: Date.now(), to: e })
             const offsetX = to.offsetX - from.offsetX
             const offsetY = to.offsetY - from.offsetY
             if ( Math.abs(offsetX) + Math.abs(offsetY) > 100 ) {
@@ -81,6 +81,7 @@ export default connect(({HEIGHT}) => {
     }
     return {
         src, width, height, focus, doc,
-        onMouseMove, onClick, onInput, onInputFocus
+        onMouseMove, onClick, onInput, onInputFocus,
+        contentmenu
     }
 })(Screen)

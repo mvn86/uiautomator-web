@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import { h, Component, VNode } from 'preact'
 
 export interface ScreenProps {
     src
@@ -10,10 +10,15 @@ export interface ScreenProps {
     onClick: (e: MouseEvent) => void
     onInput: (value: string, node: Element) => void
     onInputFocus: () => void
+    contentmenu?: VNode
 }
 
-export default class extends Component<ScreenProps, {src?: string, focus}> {
-
+export default class extends Component<ScreenProps, {src?: string, focus, showMenu?: boolean}> {
+    state = {
+        src: null,
+        focus: null,
+        showMenu: false
+    }
     componentDidMount () {
         const { src } = this.props
         this.setState({src})
@@ -24,9 +29,18 @@ export default class extends Component<ScreenProps, {src?: string, focus}> {
         this.setState({src})
     }
 
+    showContentMenu = (e) => {
+        e.preventDefault()
+        this.setState({showMenu: !this.state.showMenu})
+    }
+    hideContentMenu = () => {
+        this.setState({showMenu: false})
+    }
+
     render () {
-        const { width, height, HEIGHT, focus, onMouseMove, onClick, onInputFocus, onInput = () => {} } = this.props
-        const { src } = this.state
+        const { showContentMenu, hideContentMenu } = this
+        const { width, height, HEIGHT, focus, onMouseMove, onClick, onInputFocus, onInput = () => {}, contentmenu } = this.props
+        const { src, showMenu } = this.state
         const zoom = HEIGHT / height
         const style = {
             display: 'block',
@@ -60,7 +74,13 @@ export default class extends Component<ScreenProps, {src?: string, focus}> {
                 zIndex: 2,
                 display: focus && focus.getAttribute('class') === 'android.widget.EditText' ? 'block' : 'none'
             }, innerStyle)} onInput={(e) => onInput(e.target['value'], focus)}></textarea>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}} onMouseMove={onMouseMove} onClick={onClick}></div>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}} onMouseMove={onMouseMove} onClick={onClick} onContextMenu={showContentMenu}></div>
+            {contentmenu && showMenu && innerStyle && <div style={{
+                position: 'absolute',
+                zIndex: 2, border: 0,
+                top: innerStyle.top + innerStyle.height,
+                left: innerStyle.left
+            }} onClick={hideContentMenu}>{contentmenu}</div>}
         </div>
 
     }

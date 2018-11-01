@@ -1,3 +1,5 @@
+import { VNode } from "preact";
+
 export interface Config {
     el?: HTMLElement
     loadXML?: () => Promise<Document>
@@ -10,6 +12,7 @@ export interface Config {
     onSwipe?: (from: MouseEvent, to: MouseEvent, time: number) => void
     columns_enabled?: string[]
     columns_checked?: string[]
+    contentmenu?: VNode
 }
 
 export interface Store {
@@ -25,6 +28,7 @@ export interface Store {
     onSwipe?: (from: MouseEvent, to: MouseEvent, time: number) => void
     columns_enabled?: string[]
     columns_checked?: string[]
+    contentmenu?: VNode
 }
 
 export interface Bounds {

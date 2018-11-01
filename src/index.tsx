@@ -12,7 +12,7 @@ export const renderContainer = (cfg: Config) => {
 export class Container extends Component<Config> {
 
     init = (props: Config) => {
-        const { loadXML, screenShot, onload, onClick, onInput, onSwipe, columns_enabled, columns_checked, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
+        const { loadXML, screenShot, onload, onClick, onInput, onSwipe, columns_enabled, columns_checked, contentmenu, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
         const img = new Image()
         dispatch(state => ({...state, needReload: true, doc: null}))
         img.addEventListener('load', function (e) {
@@ -33,6 +33,7 @@ export class Container extends Component<Config> {
                     onSwipe,
                     columns_enabled: columns_enabled || attributes,
                     columns_checked: columns_checked || attributes,
+                    contentmenu,
                     expends: new Set<Element>()
                 }))
             }).catch(onerror)
