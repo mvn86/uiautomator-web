@@ -7,6 +7,7 @@ export interface Config {
     onload?: (img: HTMLImageElement) => void
     onerror?: (e) => void
     HEIGHT?: number
+    onChange?: (data, node: Element) => void
     onClick?: (e: MouseEvent, data, node: Element) => void
     onInput?: (value: string, data, node: Element) => void
     onSwipe?: (from: MouseEvent, to: MouseEvent, time: number) => void
@@ -23,6 +24,7 @@ export interface Store {
     src?: string
     focus?: Element
     expends?: Set<Element>
+    onChange?: (data, node: Element) => void
     onClick?: (e: MouseEvent, data, node: Element) => void
     onInput?: (value: string, data, node: Element) => void
     onSwipe?: (from: MouseEvent, to: MouseEvent, time: number) => void
