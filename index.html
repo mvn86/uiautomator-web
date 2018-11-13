@@ -7,10 +7,46 @@
     <title>App</title>
 </head>
 <body>
+    <div style="width: 960px; margin: 40px auto 0;">
+        <pre></pre>
+        <label ><input type="checkbox" checked id="checkbox"/> 唯一节点</label>
+        <button class="btn-first">设为First</button>
+        <button class="btn-second">设为Second</button>
+        <button class="btn-exec">获取信息</button>
+    </div>
     <div id="app" style="width: 960px; height: 640px; margin: 40px auto;"></div>
     <script src="bundle.js"></script>
     <script>
     (function (U) {
+
+        const { h } = U
+        let xml;
+        let onlyChecked = true;
+        document.querySelector('#checkbox').addEventListener('click', function () {
+            onlyChecked = !onlyChecked
+        })
+
+        const getElementXPath = (node, pnode) => {
+            let t = node
+            const paths = [];
+
+            while (t.parentElement && t.parentElement != pnode) {
+                const chd = [].slice.call(t.parentElement.children).filter(m => m.tagName === t.tagName)
+                if (chd.length > 1) {
+                    if (onlyChecked) {
+                        return false
+                    } else {
+                        const index = chd.indexOf(t)
+                        paths.unshift(`${t.tagName}[${index + 1}]`)
+                    }
+                } else {
+                    paths.unshift(`${t.tagName}`)
+                }
+                t = t.parentElement
+            }
+            paths.unshift(`${t.tagName}`)
+            return paths
+        }
         const screenShot = (img) => new Promise((resolve, reject) => {
             const fr = new FileReader()
             fr.addEventListener('load', function () {
@@ -19,25 +55,40 @@
             fr.readAsDataURL(img)
         })
 
+        let currentEl;
         U.renderContainer({
-            loadXML: () => fetch('./data/source.xml').then(res => res.text()).then(txt => new DOMParser().parseFromString(txt, 'text/xml')),
-            screenShot: () => fetch('./data/tmp.png').then(res => res.blob()).then(screenShot),
-            onClick: (e, node) => {
-                // console.log(e, node)
+            loadXML: () => fetch('./data/ui.xml').then(res => res.text()).then(txt => xml = new DOMParser().parseFromString(txt, 'text/xml')),
+            screenShot: () => fetch('./data/dump.png').then(res => res.blob()).then(screenShot),
+            onChange: (data, dom) => {
+                console.log(data)
+                currentEl = {data, dom}
             },
-            onInput: (value, node) => {
-                console.log(value)
-            },
-            onSwipe: (from, to, time) => {
-                console.log(time)
-            },
-            contentmenu: '不知道干啥',
-            columns_enabled: ['text'],
+            columns_checked: ['text'],
             el: document.querySelector('#app')
+        })
+        
+        const btnExec = document.querySelector('.btn-exec')
+        const btnFirst = document.querySelector('.btn-first')
+        const btnSecond = document.querySelector('.btn-second')
+        const show = document.querySelector('pre')
+
+
+        let firstEl, secondEl;
+        btnFirst.addEventListener('click', function () { firstEl = currentEl })
+        btnSecond.addEventListener('click', function () { secondEl = currentEl })
+        btnExec.addEventListener('click', function () {
+            const first  = firstEl && getElementXPath(firstEl)
+            const second = secondEl && getElementXPath(secondEl)
+            const relative = firstEl && secondEl && getElementXPath(secondEl, firstEl)
+            
+            show.innerHTML = `
+    first: ${first && first.join(',\n\t\t')}
+    second: ${second && second.join(',\n\t\t')}
+    relative: ${relative && relative.join(',\n\t\t')}
+`
         })
 
     })(UIAutomator);
-    
     </script>
 </body>
 </html>

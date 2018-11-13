@@ -3,6 +3,7 @@ import { dispatch } from './store'
 import { h, render, VNode, Component } from 'preact'
 import Layout from './containers/Layout'
 
+export { h, render }
 export const renderContainer = (cfg: Config) => {
     const { el, ...props } = cfg
     const { height } = el.getBoundingClientRect()
@@ -12,7 +13,7 @@ export const renderContainer = (cfg: Config) => {
 export class Container extends Component<Config> {
 
     init = (props: Config) => {
-        const { loadXML, screenShot, onload, onClick, onInput, onSwipe, columns_enabled, columns_checked, contentmenu, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
+        const { loadXML, screenShot, onload, onClick, onChange, onInput, onSwipe, columns_enabled, columns_checked, contentmenu, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
         const img = new Image()
         dispatch(state => ({...state, needReload: true, doc: null}))
         img.addEventListener('load', function (e) {
@@ -28,6 +29,7 @@ export class Container extends Component<Config> {
                     doc,
                     src: img.src,
                     focus: null,
+                    onChange,
                     onClick,
                     onInput,
                     onSwipe,

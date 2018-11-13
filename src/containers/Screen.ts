@@ -11,6 +11,7 @@ const boundContains = (bounds: Bounds, x, y): boolean => {
 let onMouseMove
 let onClick
 let onInputFocus
+let onInputChange
 export default connect(({HEIGHT}) => {
     const { src, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onSwipe, onInput, contentmenu } = getState()
     if (needReload && doc) {
@@ -78,10 +79,18 @@ export default connect(({HEIGHT}) => {
         onInputFocus = (e) => {
             canMove = false
         }
+        onInputChange = (value, focus) => {
+            const { columns_checked = [] } = getState()
+            if (focus) {
+                let data = {}
+                columns_checked.map(k => {data[k] = focus.getAttribute(k)})
+                onInput && onInput(value, data, focus)
+            }
+        }
     }
     return {
         src, width, height, focus, doc,
-        onMouseMove, onClick, onInput, onInputFocus,
+        onMouseMove, onClick, onInput: onInputChange, onInputFocus,
         contentmenu
     }
 })(Screen)

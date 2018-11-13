@@ -37,8 +37,8 @@ export default class extends Component<HierarchyProps, HierarchyState> {
                 cursor: 'pointer',
                 lineHeight: 2,
                 background: focus === node ? '#d2d2d2' : null
-            }} onClick={() => onExpend(node)}>
-                {node.children.length ? <b>{expends.has(node) ? '▾' : '▸'}</b> : ' '}
+            }}>
+                {node.children.length ? <b onClick={() => onExpend(node)}>{expends.has(node) ? '▾' : '▸'}</b> : ' '}
                 &nbsp;
                 {root ? 'ROOT' : <span onClick={() => onFocus(node)} >
                     ({node.getAttribute('index')}) {className} {node.getAttribute('bounds')}
