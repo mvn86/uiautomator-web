@@ -11,6 +11,6 @@ module.exports = {
         }
     },
     buildFilter: p => /data|src|index/.test(p),
-    middlewares: [ { middleware: 'rollup' } ],
+    middlewares: [ { middleware: 'rollup' }, { test: /index\.html/, middleware: 'template' } ],
     output: require('path').join(__dirname, './docs')
 }
