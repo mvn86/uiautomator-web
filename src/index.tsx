@@ -13,7 +13,7 @@ export const renderContainer = (cfg: Config) => {
 export class Container extends Component<Config> {
 
     init = (props: Config) => {
-        const { loadXML, screenShot, onload, onClick, onChange, onInput, onSwipe, columns_enabled, columns_checked, contentmenu, onerror = e => alert('xml 加载失败！\n' + e.toString()) } = props
+        const { loadXML, screenShot, onload, onClick, onChange, onInput, onSwipe, columns_enabled, columns_checked, contentmenu, onerror = e => alert('img 或 xml 加载失败！\n' + e.toString()) } = props
         const img = new Image()
         dispatch(state => ({...state, needReload: true, doc: null}))
         img.addEventListener('load', function (e) {
@@ -40,6 +40,7 @@ export class Container extends Component<Config> {
                 }))
             }).catch(onerror)
         })
+        img.addEventListener('error', onerror)
         screenShot().then((src) => {
             img.src = src;
         })

@@ -36,7 +36,7 @@ export default class extends Component<LayoutProps> {
                     left: 0,
                     top: 0,
                     width: '100%',
-                    height: HEIGHT / 2,
+                    height: '66.67%',
                     overflow: 'auto'
                 }}><Hierarchy /></div>
                 <div style={{
@@ -44,7 +44,7 @@ export default class extends Component<LayoutProps> {
                     left: 0,
                     bottom: 0,
                     width: '100%',
-                    height: HEIGHT / 2,
+                    height: '33.33%',
                     borderTop: '1px solid #ccc',
                     overflow: 'auto'
                 }}><Detail /></div>

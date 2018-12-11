@@ -1,7 +1,7 @@
 import { VNode } from "preact";
 
 export interface Config {
-    el?: HTMLElement
+    el?: HTMLDivElement
     loadXML?: () => Promise<Document>
     screenShot?: () => Promise<string>
     onload?: (img: HTMLImageElement) => void
@@ -10,13 +10,13 @@ export interface Config {
     onChange?: (data, node: Element) => void
     onClick?: (e: MouseEvent, data, node: Element) => void
     onInput?: (value: string, data, node: Element) => void
-    onSwipe?: (from: MouseEvent, to: MouseEvent, time: number) => void
+    onSwipe?: (from: MouseEvent, to: MouseEvent, during: number) => void
     columns_enabled?: string[]
     columns_checked?: string[]
-    contentmenu?: VNode
+    contentmenu?: VNode | string
 }
 
-export interface Store {
+export interface Store extends Config {
     needReload?: boolean
     doc?: Document
     width?: number
@@ -24,13 +24,6 @@ export interface Store {
     src?: string
     focus?: Element
     expends?: Set<Element>
-    onChange?: (data, node: Element) => void
-    onClick?: (e: MouseEvent, data, node: Element) => void
-    onInput?: (value: string, data, node: Element) => void
-    onSwipe?: (from: MouseEvent, to: MouseEvent, time: number) => void
-    columns_enabled?: string[]
-    columns_checked?: string[]
-    contentmenu?: VNode
 }
 
 export interface Bounds {
