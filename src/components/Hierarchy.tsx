@@ -33,14 +33,18 @@ export default class extends Component<HierarchyProps, HierarchyState> {
         return <li style={{
             paddingLeft: 12
         }}>
-            <div className={focus === node ? FOCUS_CLASS : ''} tabIndex={-1} style={{
-                cursor: 'pointer',
-                lineHeight: 2,
-                background: focus === node ? '#d2d2d2' : null
-            }}>
-                {node.children.length ? <b onClick={() => onExpend(node)}>{expends.has(node) ? '▾' : '▸'}</b> : ' '}
+            <div>
+                {node.children.length ? <b onClick={() => onExpend(node)} style={{cursor: 'pointer'}}>{expends.has(node) ? '▾' : '▸'}</b> : ' '}
                 &nbsp;
-                {root ? 'ROOT' : <span onClick={() => onFocus(node)} >
+                {root ? 'ROOT' : <span onClick={() => onFocus(node)}
+                    className={focus === node ? FOCUS_CLASS : ''}
+                    tabIndex={-1}
+                    style={{
+                        cursor: 'pointer',
+                        lineHeight: 2,
+                        whiteSpace: 'pre',
+                        background: focus === node ? '#d2d2d2' : null
+                }}>
                     ({node.getAttribute('index')}) {className} {node.getAttribute('bounds')}
                 </span>}
             </div>

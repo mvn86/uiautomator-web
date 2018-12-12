@@ -20,6 +20,9 @@ export default class extends Component<DetailProps> {
                                 disabled={!columns_enabled.includes(name)}
                                 checked={columns_checked.includes(name)}
                                 onClick={() => changeChecked(name)}
+                                style={{
+                                    verticalAlign: -3
+                                }}
                             />
                             <span>{name}</span>
                         </label>
