@@ -17,7 +17,7 @@ export interface Config {
     onSwipe?: (from: MouseEvent, to: MouseEvent, during: number) => void
     columns_enabled?: string[]
     columns_checked?: string[]
-    contentmenu?: VNode | string
+    contentmenu?: (node: Element) => VNode | string
 }
 
 export interface Store extends Config {

@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="app" style="width: 800px; height: 640px; margin: 40px auto;"></div>
-    <script src="bundle.js?1544620169264"></script>
+    <script src="bundle.js?1544622019550"></script>
     <script>
     (function (U) {
         const { h } = U
@@ -32,9 +32,9 @@
             onInput: (value, data, node) => console.log('input text:', value),
             onSwipe: (from, to, during) => console.log('swipe:', from, to, during),
             columns_checked: ['text', 'class'],
-            contentmenu: h('a', {
+            contentmenu: (node) => h('a', {
                 onClick: () => {
-                    alert(JSON.stringify(item, null, 2))
+                    alert(node)
                     location.reload()
                 },
                 style: {

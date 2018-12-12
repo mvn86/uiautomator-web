@@ -10,7 +10,7 @@ export interface ScreenProps {
     onClick: (e: MouseEvent) => void
     onInput: (value: string, node: Element) => void
     onInputFocus: () => void
-    contentmenu?: VNode
+    contentmenu?: (node: Element) => VNode | string
 }
 
 export default class extends Component<ScreenProps, {src?: string, focus, showMenu?: boolean}> {
@@ -80,7 +80,7 @@ export default class extends Component<ScreenProps, {src?: string, focus, showMe
                 zIndex: 2, border: 0,
                 top: innerStyle.top + innerStyle.height,
                 left: innerStyle.left
-            }} onClick={hideContentMenu}>{contentmenu}</div>}
+            }} onClick={hideContentMenu}>{contentmenu(focus)}</div>}
         </div>
 
     }
