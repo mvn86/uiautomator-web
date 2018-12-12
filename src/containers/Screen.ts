@@ -34,21 +34,24 @@ export default connect(({HEIGHT}) => {
             from: MouseEvent,
             to?: MouseEvent
         };
-        onmousedown = (e: MouseEvent) => {
+        let during
+
+        addEventListener('mousedown', (e: MouseEvent) => {
             swipe = {
                 begin: Date.now(),
                 from: e
             }
-        }
-        onmouseup = (e: MouseEvent) => {
+        })
+        addEventListener('mouseup', (e: MouseEvent) => {
             const { from, to, begin, end } = Object.assign({}, swipe, { end: Date.now(), to: e })
             const offsetX = to.offsetX - from.offsetX
             const offsetY = to.offsetY - from.offsetY
+            during = end - begin
             if ( Math.abs(offsetX) + Math.abs(offsetY) > 100 ) {
-                onSwipe && onSwipe(from, to, end - begin)
+                onSwipe && onSwipe(from, to, during)
             }
             swipe = null
-        }
+        })
         onMouseMove = (e: MouseEvent) => {
             if (!canMove) return
             const { offsetX, offsetY } = e
@@ -72,7 +75,7 @@ export default connect(({HEIGHT}) => {
             if (canMove && focus) {
                 let data = {}
                 columns_checked.map(k => {data[k] = focus.getAttribute(k)})
-                onClickCfg &&　onClickCfg(e, data, focus)
+                onClickCfg &&　onClickCfg(Object.assign({during}, e), data, focus)
             }
             canMove = !canMove
         }

@@ -28,7 +28,7 @@
             onload: (img) => console.log('截图加载完成', img),
             onerror: (e) => console.log('img 或 xml 加载失败！', e),
             onChange: (data, node) => console.log('focus change:', item = data),
-            onClick: (e, data, node) => console.log('screen click:', data, node),
+            onClick: (e, data, node) => console.log('screen click:', e.during, data, node),
             onInput: (value, data, node) => console.log('input text:', value),
             onSwipe: (from, to, during) => console.log('swipe:', from, to, during),
             columns_checked: ['text', 'class'],

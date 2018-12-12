@@ -1,5 +1,9 @@
 import { VNode } from "preact";
 
+export interface ClickMouseEvent extends MouseEvent {
+    during?: number
+}
+
 export interface Config {
     el?: HTMLDivElement
     loadXML?: () => Promise<Document>
@@ -8,7 +12,7 @@ export interface Config {
     onerror?: (e) => void
     HEIGHT?: number
     onChange?: (data, node: Element) => void
-    onClick?: (e: MouseEvent, data, node: Element) => void
+    onClick?: (e: ClickMouseEvent, data, node: Element) => void
     onInput?: (value: string, data, node: Element) => void
     onSwipe?: (from: MouseEvent, to: MouseEvent, during: number) => void
     columns_enabled?: string[]
