@@ -13,7 +13,7 @@ let onClick
 let onInputFocus
 let onInputChange
 export default connect(({HEIGHT}) => {
-    const { src, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onSwipe, onInput, contentmenu } = getState()
+    const { src, width, height, focus, doc, expends, needReload, onClick: onClickCfg, onSwipe, onInput, contentmenu, clickable_filter } = getState()
     if (needReload && doc) {
         dispatch(state => ({...state, needReload: false}))
         const zoom = height / HEIGHT
@@ -57,6 +57,9 @@ export default connect(({HEIGHT}) => {
             const { offsetX, offsetY } = e
             for (let i = 0; i < elements.length; i++) {
                 const { node, bounds } = elements[i]
+                if (clickable_filter && node.getAttribute('clickable') === 'false') {
+                    continue
+                }
                 if (boundContains(bounds, offsetX * zoom, offsetY * zoom)) {
                     if (node === focus) {
                         return
