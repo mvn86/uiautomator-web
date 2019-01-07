@@ -28,6 +28,7 @@ export interface Store extends Config {
     src?: string
     focus?: Element
     expends?: Set<Element>
+    clickable_filter?: boolean
 }
 
 export interface Bounds {

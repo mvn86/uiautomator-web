@@ -3,8 +3,8 @@ import Hierarchy from '../components/Hierarchy'
 import { onFocus, onExpend } from '../action'
 
 export default connect(() => {
-    const { doc, focus, expends } = getState()
+    const { doc, focus, expends, clickable_filter } = getState()
     return {
-        doc, focus, onFocus, expends, onExpend
+        doc, focus, onFocus, expends, onExpend, clickable_filter
     }
 })(Hierarchy)

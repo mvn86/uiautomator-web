@@ -1,8 +1,10 @@
 import { dispatch, getState } from './store'
 
 export const onFocus = (focus: Element) => dispatch((state) => {
-    const { onChange, columns_checked } = state
-
+    const { onChange, columns_checked, clickable_filter } = state
+    if (clickable_filter && focus.getAttribute('clickable') === 'false') {
+        return state
+    }
     let data = {}
     columns_checked.map(k => {data[k] = focus.getAttribute(k)})
     onChange && onChange(data, focus)

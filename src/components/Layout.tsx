@@ -2,6 +2,7 @@ import { h, Component } from 'preact'
 import Screen from '../containers/Screen'
 import Hierarchy from '../containers/Hierarchy'
 import Detail from '../containers/Detail'
+import ConfigPanel from '../containers/ConfigPanel'
 
 export interface LayoutProps {
     doc
@@ -48,6 +49,7 @@ export default class extends Component<LayoutProps> {
                     borderTop: '1px solid #ccc',
                     overflow: 'auto'
                 }}><Detail /></div>
+                <ConfigPanel/>
             </div>
         </div>
     }
